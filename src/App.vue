@@ -12,13 +12,13 @@
       success: function(res) {
         // console.log(res);
         if (res.code) {
-          var config = require("../config");
+          // var config = require("../config");
           // console.log(config.remoteServer);
 
           // 获取code后向目标服务器发起网络请求，获取openId, sessionKey
           wx.request({
-            // url: 'http://127.0.0.1:3006/login',
-            url: config.remoteServer + '/login',
+            url: 'http://127.0.0.1:3006/login',
+            // url: config.remoteServer + '/login',
             data: {
               code: res.code,
             },
