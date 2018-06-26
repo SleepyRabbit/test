@@ -1,6 +1,7 @@
 <template>
   <div id="app" class="container">
     我是首页
+    <button open-type="getUserInfo" @getuserinfo="getUserInfo">用户</button>
   </div>
 </template>
 
@@ -12,6 +13,9 @@ export default {
   },
 
   methods: {
+    getUserInfo: function(e) {
+      console.log(e.mp.detail.userInfo);
+    }
   },
 
   created () {
