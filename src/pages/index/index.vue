@@ -1,7 +1,17 @@
 <template>
   <div id="app" class="container">
-    我是首页
-    <button open-type="getUserInfo" @getuserinfo="getUserInfo">用户</button>
+    <ui>
+      <li>Nickname: {{nickName}}</li>
+      <li>Gender: {{gender}}</li>
+      <li>Language: {{language}}</li>
+      <li>City: {{city}}</li>
+      <li>Province: {{province}}</li>
+    </ui>
+    <span>
+      <button open-type="getUserInfo" @getuserinfo="getUserInfo">获取用户信息</button>
+      <button @click="getUserLocation">获取位置信息</button>
+      <button @click="chooseUserLocation">设置位置信息</button>
+    </span>
   </div>
 </template>
 
@@ -9,13 +19,44 @@
 export default {
   data () {
     return {
+      nickName: '',
+      gender: '',
+      language: '',
+      city: '',
+      province: '',
     }
   },
 
   methods: {
     getUserInfo: function(e) {
-      console.log(e.mp.detail.userInfo);
-    }
+      var userInfo = e.mp.detail.userInfo;
+      console.log(userInfo);
+      this.nickName = userInfo.nickName;
+      this.gender = userInfo.gender;
+      this.language = userInfo.language;
+      this.city = userInfo.city;
+      this.province = userInfo.province;
+    },
+    getUserLocation: function() {
+      wx.getLocation({
+        type: 'wgs84',
+        success: function(res) {
+          console.log(res);
+          var latitude = res.latitude;
+          var longitude = res.longitude;
+          var speed = res.speed;
+          var accuracy = res.accuracy;
+        }
+      });
+    },
+    chooseUserLocation: function() {
+      wx.chooseLocation({
+        success: function(res) {
+          console.log("choose");
+          console.log(res);
+        }
+      });
+    },
   },
 
   created () {
